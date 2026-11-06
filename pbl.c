@@ -1,6 +1,17 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+int binary(int n) {
+    int binary = 0;
+    int place = 1;
+    while (n>0) {
+        int rem=n% 2;
+        binary0=binary+(rem*place);
+        num=num/2;
+        place=place*10;
+    }
+    return binary;
+}
 compress(){
     FILE *fp=fopen("input.txt","rb");
     if(fp==NULL){
@@ -44,16 +55,26 @@ compress(){
                     freq[j]=t;
                     temp = words[i];
                     words[i] = words[j];
-                    words[j] = temp;                
+                    words[j] = temp;
+                    //now frequency table is of no use                
                 }
             }
-        }//now frequency table is of no use
+        }
+        //we write the words in compressed.dat
+        FILE *fp2=fopen("compressed.dat","wb");
+        fwrite(&word_count, sizeof(int), 1, fp2);
+        for(i=0;i<word_count;i++){
+            int len = strlen(words[i]) + 1;
+            fwrite(words[i], sizeof(char), len, fp2);
+            fwrite(words[i], sizeof(char), len, fp2);
+        }
         //elias-gama_table
         int elias[word_count];
         for(i=0;i<word_count;i++){
-            
+            elias[i]=binary[i];
         }
     }
+int decompress(){}
 int main(){
     if(compress()){
         printf("compression failed");
